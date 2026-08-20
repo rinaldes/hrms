@@ -209,9 +209,12 @@ class Attendance(Document):
 			self.leave_application = None
 
 	def validate_employee(self):
-		emp = frappe.db.sql(
-			"select name from `tabEmployee` where name = %s and status = 'Active'", self.employee
-		)
+		Employee = frappe.qb.DocType("Employee")
+		emp = (
+			frappe.qb.from_(Employee)
+			.select(Employee.name)
+			.where((Employee.name == self.employee) & (Employee.status == "Active"))
+		).run()
 		if not emp:
 			frappe.throw(_("Employee {0} is not active or does not exist").format(self.employee))
 
@@ -400,6 +403,7 @@ def process_bulk_attendance_in_batches(data, chunk_size=20):
 def get_unmarked_days(
 	employee: str, from_date: str | date, to_date: str | date, exclude_holidays: str | int = 0
 ) -> list:
+	frappe.has_permission("Employee", "read", employee, throw=True)
 	joining_date, relieving_date = frappe.get_cached_value(
 		"Employee", employee, ["date_of_joining", "relieving_date"]
 	)

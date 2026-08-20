@@ -156,6 +156,7 @@ class Interview(Document):
 
 @frappe.whitelist()
 def get_interviewers(interview_type: str) -> list[dict]:
+	frappe.has_permission("Interview Type", "read", interview_type, throw=True)
 	return frappe.get_all("Interviewer", filters={"parent": interview_type}, fields=["user as interviewer"])
 
 
@@ -202,6 +203,7 @@ def get_feedback(interview: str) -> list[dict]:
 
 @frappe.whitelist()
 def get_skill_wise_average_rating(interview: str) -> list[dict]:
+	frappe.has_permission("Interview", "read", interview, throw=True)
 	skill_assessment = frappe.qb.DocType("Skill Assessment")
 	interview_feedback = frappe.qb.DocType("Interview Feedback")
 	return (
@@ -224,17 +226,17 @@ def update_job_applicant_status(status: str, job_applicant: str):
 		if not job_applicant:
 			frappe.throw(_("Please specify the job applicant to be updated."))
 
-		job_applicant = frappe.get_doc("Job Applicant", job_applicant)
-		job_applicant.status = status
-		job_applicant.save()
+		doc = frappe.get_doc("Job Applicant", job_applicant)
+		doc.status = status
+		doc.save()
 
 		frappe.msgprint(
-			_("Updated the Job Applicant status to {0}").format(job_applicant.status),
+			_("Updated the Job Applicant status to {0}").format(doc.status),
 			alert=True,
 			indicator="green",
 		)
 	except Exception:
-		job_applicant.log_error("Failed to update Job Applicant status")
+		frappe.log_error("Failed to update Job Applicant status")
 		frappe.msgprint(
 			_("Failed to update the Job Applicant status"),
 			alert=True,
@@ -340,6 +342,7 @@ def send_daily_feedback_reminder():
 
 @frappe.whitelist()
 def get_expected_skill_set(interview_type: str) -> list[dict]:
+	frappe.has_permission("Interview Type", "read", interview_type, throw=True)
 	return frappe.get_all(
 		"Expected Skill Set", filters={"parent": interview_type}, fields=["skill"], order_by="idx"
 	)

@@ -118,11 +118,12 @@ class EmployeeAdvance(Document):
 				and total_amount == flt(self.paid_amount, precision)
 			):
 				status = "Partly Claimed and Returned"
-			elif flt(self.paid_amount) > 0 and (
-				flt(self.advance_amount, precision) == flt(self.paid_amount, precision)
-				or (self.paid_amount and self.repay_unclaimed_amount_from_salary)
+			elif flt(self.paid_amount) > 0 and flt(self.advance_amount, precision) == flt(
+				self.paid_amount, precision
 			):
 				status = "Paid"
+			elif flt(self.paid_amount) > 0:
+				status = "Partially Paid"
 			else:
 				status = "Unpaid"
 		elif self.docstatus == 2:
@@ -202,6 +203,7 @@ class EmployeeAdvance(Document):
 		self.db_set("paid_amount", paid_amount)
 		self.db_set("return_amount", return_amount)
 		self.set_status(update=True)
+		self.set_pending_amount(update=True)
 
 		base_paid_amount = aple_paid_amount.get("base_paid_amount") or 0
 		self.db_set("base_paid_amount", base_paid_amount)
@@ -226,18 +228,23 @@ class EmployeeAdvance(Document):
 		self.reload()
 		self.set_status(update=True)
 
-	def set_pending_amount(self):
+	def set_pending_amount(self, update=False):
 		Advance = frappe.qb.DocType("Employee Advance")
-		self.pending_amount = (
+		pending_amount = (
 			frappe.qb.from_(Advance)
 			.select(Sum(Advance.advance_amount - Advance.paid_amount))
 			.where(
 				(Advance.employee == self.employee)
 				& (Advance.docstatus == 1)
 				& (Advance.posting_date <= self.posting_date)
-				& (Advance.status == "Unpaid")
+				& (Advance.status.isin(["Unpaid", "Partially Paid"]))
 			)
 		).run()[0][0] or 0.0
+
+		if update:
+			self.db_set("pending_amount", pending_amount)
+		else:
+			self.pending_amount = pending_amount
 
 	def check_linked_payment_entry(self):
 		from erpnext.accounts.utils import (
@@ -366,3 +373,28 @@ def get_voucher_type(mode_of_payment=None):
 			voucher_type = "Bank Entry"
 
 	return voucher_type
+
+
+@frappe.whitelist()
+def get_employee_advance_return(employee_advance: str):
+	frappe.has_permission("Employee Advance", ptype="read", doc=employee_advance, throw=True)
+
+	AdditionalSalary = frappe.qb.DocType("Additional Salary")
+	return_entries = (
+		frappe.qb.from_(AdditionalSalary)
+		.select(Sum(AdditionalSalary.amount).as_("total_return_scheduled"))
+		.where(
+			(AdditionalSalary.ref_doctype == "Employee Advance")
+			& (AdditionalSalary.ref_docname == employee_advance)
+			& (AdditionalSalary.docstatus == 1)
+		)
+	).run(as_dict=True)
+
+	total_return_scheduled = flt(return_entries[0].total_return_scheduled)
+	already_returned = flt(frappe.db.get_value("Employee Advance", employee_advance, "return_amount"))
+	pending_scheduled = max(0, total_return_scheduled - already_returned)
+
+	return {
+		"total_return_scheduled": pending_scheduled,
+		"has_return_scheduled": bool(pending_scheduled),
+	}
