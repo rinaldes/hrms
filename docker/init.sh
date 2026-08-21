@@ -3,6 +3,7 @@
 if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
     echo "Bench already exists, skipping init"
     cd frappe-bench
+    sed -i 's/bench serve --port 8000/bench serve --port 8000 --host 0.0.0.0/' ./Procfile
     bench start
 else
     echo "Creating new bench..."
@@ -24,14 +25,17 @@ bench set-redis-socketio-host redis://redis:6379
 sed -i '/redis/d' ./Procfile
 sed -i '/watch/d' ./Procfile
 
+# Bind web server to 0.0.0.0 so Docker port mapping works
+sed -i 's/bench serve --port 8000/bench serve --port 8000 --host 0.0.0.0/' ./Procfile
+
 bench get-app erpnext
 bench get-app hrms
 
 bench new-site hrms.localhost \
---force \
---mariadb-root-password 123 \
---admin-password admin \
---no-mariadb-socket
+    --force \
+    --mariadb-root-password 123 \
+    --admin-password admin \
+    --no-mariadb-socket
 
 bench --site hrms.localhost install-app hrms
 bench --site hrms.localhost set-config developer_mode 1
