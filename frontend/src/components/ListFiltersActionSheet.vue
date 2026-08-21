@@ -1,10 +1,10 @@
 <template>
 	<!-- Filter Action Sheet -->
 	<div
-		class="bg-white w-full flex flex-col items-center justify-center pb-5 max-h-[calc(100vh-5rem)]"
+		class="bg-surface-white w-full flex flex-col items-center justify-center pb-5 max-h-[calc(100vh-5rem)]"
 	>
 		<div class="w-full pt-8 pb-5 border-b text-center sticky top-0 z-[100]">
-			<span class="text-gray-900 font-bold text-lg">{{ __("Filters") }} </span>
+			<span class="text-ink-gray-9 font-bold text-lg">{{ __("Filters") }} </span>
 		</div>
 
 		<div class="w-full p-4 overflow-auto">
@@ -19,7 +19,7 @@
 						class="flex flex-col gap-1.5"
 						v-if="['status', 'approval_status'].includes(filter.fieldname)"
 					>
-						<div class="text-gray-800 font-semibold text-base">
+						<div class="text-ink-gray-8 font-semibold text-base">
 							{{ __(filter.label) }}
 						</div>
 						<div class="flex flex-row gap-2 mt-2 flex-wrap">
@@ -27,10 +27,10 @@
 								v-for="option in filter.options"
 								variant="outline"
 								@click="setStatusFilter(filter.fieldname, option)"
-								class="text-sm text-gray-800"
+								class="text-sm text-ink-gray-8"
 								:class="[
 									option === filters[filter.fieldname].value
-										? '!border !border-gray-800 !text-gray-900 !bg-gray-50 !font-medium'
+										? '!border !border-outline-gray-5 !text-ink-gray-9 !bg-surface-gray-1 !font-medium'
 										: '!font-normal',
 								]"
 							>
@@ -41,7 +41,7 @@
 
 					<!-- Field filters -->
 					<div v-else class="flex flex-col gap-2">
-						<div class="text-gray-800 font-semibold text-base">
+						<div class="text-ink-gray-8 font-semibold text-base">
 							{{ __(filter.label) }}
 						</div>
 						<div class="flex flex-row items-center gap-3">

@@ -1,5 +1,7 @@
+/* HYOSHII BRAND — was var(--gray-50); now defers to the sitewide warm-white token
+   (hrms-web.bundle.scss) instead of re-deriving its own off-white. */
 body.jobs-page {
-	background: var(--gray-50);
+	background: var(--bg-color);
 }
 
 h3.jobs-page {
@@ -58,7 +60,10 @@ h4.jobs-page {
 
 .job-card-footer {
 	background: var(--gray-100);
-	border-radius: 0 0 0.75rem 0.75rem;
+	/* HYOSHII BRAND — was a literal 0.75rem; now matches the card's own
+	   var(--border-radius) (sitewide token, hrms-web.bundle.scss) instead of drifting
+	   from it now that the card's top corners are the tighter brand radius. */
+	border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .search-box-container {
@@ -90,7 +95,9 @@ h4.jobs-page {
 	left: 0;
 	transition: bottom 0.3s ease;
 	box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.1);
-	border-radius: 16px 16px 0px 0px;
+	/* HYOSHII BRAND — was a literal 16px; now the sitewide var(--border-radius) token
+	   (hrms-web.bundle.scss), matching the tightened shape pass everywhere else. */
+	border-radius: var(--border-radius) var(--border-radius) 0px 0px;
 	z-index: 5 !important;
 }
 

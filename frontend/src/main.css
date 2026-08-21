@@ -1,4 +1,54 @@
 @import "frappe-ui/src/style.css";
+/* HYOSHII BRAND — shared token layer (Phase 2 of plans/rebrands.md). */
+@import "./theme/brand.css";
+
+/* HYOSHII BRAND — type scale (Phase 3 of plans/rebrands.md), matching the
+ * table in Findings. Utility classes on individual elements still win, per
+ * the cascade — these are the defaults. */
+@layer base {
+	h1 {
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 2.375rem; /* 38px */
+		line-height: 3.5rem; /* 56px */
+	}
+
+	.subtitle {
+		font-family: var(--font-display);
+		font-weight: 400;
+		font-size: 1.125rem; /* 18px */
+		line-height: 1.5rem; /* 24px */
+		letter-spacing: 0.15px;
+	}
+
+	h2 {
+		font-family: var(--font-sans);
+		font-weight: 700;
+		font-size: 1.125rem; /* 18px */
+		line-height: 1.75rem; /* 28px */
+		text-transform: uppercase;
+	}
+
+	h3 {
+		font-family: var(--font-sans);
+		font-weight: 500;
+		font-size: 1.125rem; /* 18px */
+		line-height: 1.75rem; /* 28px */
+	}
+
+	body {
+		font-family: var(--font-sans);
+		font-weight: 500;
+		font-size: 15px;
+		line-height: 22px;
+	}
+
+	.label {
+		font-family: var(--font-sans);
+		font-size: 12px;
+		color: var(--ink-gray-4);
+	}
+}
 
 ion-modal {
 	--height: auto;

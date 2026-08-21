@@ -1,19 +1,19 @@
 <template>
 	<div
 		v-if="document?.doc"
-		class="bg-white w-full flex flex-col items-center justify-center pb-5 max-h-[calc(100vh-5rem)]"
+		class="bg-surface-white w-full flex flex-col items-center justify-center pb-5 max-h-[calc(100vh-5rem)]"
 	>
 		<!-- Header -->
 		<div
 			class="w-full flex flex-row gap-2 pt-8 pb-5 border-b justify-center items-center sticky top-0 z-[100]"
 		>
-			<span class="text-gray-900 font-bold text-lg text-center">
+			<span class="text-ink-gray-9 font-bold text-lg text-center">
 				{{ __(document?.doctype) }}
 			</span>
 			<FeatherIcon
 				v-if="props.showOpenForm"
 				name="external-link"
-				class="h-4 w-4 text-gray-500 cursor-pointer"
+				class="h-4 w-4 text-ink-gray-4 cursor-pointer"
 				@click="openFormView"
 			/>
 		</div>
@@ -33,7 +33,7 @@
 						'flex w-full',
 					]"
 				>
-					<div class="text-gray-600 text-base">{{ __(field.label, null, props.modelValue?.doctype) }}</div>
+					<div class="text-ink-gray-5 text-base">{{ __(field.label, null, props.modelValue?.doctype) }}</div>
 					<component
 						v-if="field.fieldtype === 'Table'"
 						:is="field.component"
@@ -52,15 +52,15 @@
 					class="flex flex-col gap-2 w-full"
 					v-if="attachedFiles?.data?.length"
 				>
-					<div class="text-gray-600 text-base">{{ __('Attachments') }}</div>
+					<div class="text-ink-gray-5 text-base">{{ __('Attachments') }}</div>
 					<ul class="w-full flex flex-col items-center gap-2">
 						<li
-							class="bg-gray-100 rounded p-2 w-full"
+							class="bg-surface-gray-2 rounded p-2 w-full"
 							v-for="(file, index) in attachedFiles.data"
 							:key="index"
 						>
 							<div
-								class="flex flex-row items-center justify-between text-gray-700 text-sm"
+								class="flex flex-row items-center justify-between text-ink-gray-7 text-sm"
 							>
 								<span class="grow" @click="showFilePreview(file)">
 									{{ file.file_name || file.name }}

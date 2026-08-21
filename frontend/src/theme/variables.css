@@ -3,19 +3,24 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 
+/* HYOSHII BRAND — retargeted to the Phase 2 token layer (./brand.css). Ionic
+ * requires the -rgb companions as plain decimal triplets (consumers wrap them
+ * in rgba()), so those are a mechanical hex->rgb derivation of --brand-600 /
+ * --color-white, not independently chosen values — see Findings: "any hex
+ * literal appearing in a later phase is a bug". */
 :root {
-	--ion-background-color: #f4f5f6;
-	--ion-font-family: "InterVar", sans-serif;
+	--ion-background-color: var(--color-white);
+	--ion-font-family: var(--font-sans);
 	--ion-tab-bar-color-selected: #525252;
 	--ion-tab-bar-background-focused: #e2e2e2;
 
 	/** primary **/
-	--ion-color-primary: #3880ff;
-	--ion-color-primary-rgb: 56, 128, 255;
-	--ion-color-primary-contrast: #ffffff;
-	--ion-color-primary-contrast-rgb: 255, 255, 255;
-	--ion-color-primary-shade: #3171e0;
-	--ion-color-primary-tint: #4c8dff;
+	--ion-color-primary: var(--brand-600);
+	--ion-color-primary-rgb: 29, 73, 74; /* = --brand-600 #1d494a */
+	--ion-color-primary-contrast: var(--color-white);
+	--ion-color-primary-contrast-rgb: 251, 250, 247; /* = --color-white #fbfaf7 */
+	--ion-color-primary-shade: var(--brand-700);
+	--ion-color-primary-tint: var(--brand-500);
 
 	/** secondary **/
 	--ion-color-secondary: #3dc2ff;

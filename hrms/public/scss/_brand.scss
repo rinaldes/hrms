@@ -1,0 +1,233 @@
+// HYOSHII BRAND — Phase 5 (desk skin).
+//
+// Phase 5 was implemented standalone, before Phase 2's shared token layer landed.
+// Phase 2 (frontend/src/theme/brand.css) is the canonical definition for the CSS/Vite
+// side (frontend/ + roster/); this file intentionally keeps its own copy of the same
+// values rather than folding into that one — SCSS is a separate toolchain that can't
+// consume a Vite-side file directly, so per Findings ("the ramp is written once per
+// language: CSS, Tailwind, SCSS") this is that one SCSS write, not a leftover duplicate.
+// Custom-property names are sourced from a live read of github.com/frappe/frappe on
+// branch `version-16` (frappe/public/scss/{common,desk,espresso}/*.scss) since no
+// bench/frappe checkout was available locally to grep.
+//
+// IMPORTANT: Frappe's own espresso color system already defines --teal-50..900 (a
+// different, muted teal used for indicator badges etc.) — see espresso/_colors.scss.
+// The brand ramp is namespaced --hy-teal-* below specifically to avoid colliding with it.
+
+// ---------------------------------------------------------------------------
+// Fonts — self-hosted variable fonts (hrms/public/fonts/), no CDN at runtime.
+// Both Public Sans and Outfit ship from Google Fonts as variable (wght-axis) files;
+// one file per family covers every weight the type scale needs.
+// ---------------------------------------------------------------------------
+
+@font-face {
+	font-family: "Public Sans";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("/assets/hrms/fonts/PublicSans-Variable.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Outfit";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("/assets/hrms/fonts/Outfit-Variable.woff2") format("woff2");
+}
+
+:root,
+[data-theme="light"] {
+	// ---------------------------------------------------------------------
+	// Brand ramp (Findings table, plan/rebrands.md) — anchor is 600, not 500.
+	// ---------------------------------------------------------------------
+	--hy-teal-50: #f4fafa;
+	--hy-teal-100: #e3f2f2;
+	--hy-teal-200: #c4e2e3;
+	--hy-teal-300: #8cc8ca;
+	--hy-teal-400: #409396;
+	--hy-teal-500: #46716e;
+	--hy-teal-600: #1d494a;
+	--hy-teal-700: #173e3f;
+	--hy-teal-800: #133435;
+	--hy-teal-900: #0e292a;
+	--hy-teal-950: #0a1e1f;
+
+	--hy-white: #fbfaf7;
+	--hy-black: #2f2b3de5;
+	--hy-radius: 0.125rem;
+
+	--hy-font-sans: "Public Sans", var(--font-stack);
+	--hy-font-display: "Outfit", var(--font-stack);
+
+	// -----------------------------------------------------------------
+	// Primary/accent — everything that reads brand color keys off these.
+	// -----------------------------------------------------------------
+	--primary: var(--hy-teal-600);
+	--primary-color: var(--hy-teal-600);
+	--brand-color: var(--hy-teal-600);
+	--btn-primary: var(--hy-teal-600);
+	--border-primary: var(--hy-teal-600);
+
+	// -----------------------------------------------------------------
+	// Radius — buttons/inputs/cards → 0.125rem. Only the tight end of the
+	// scale moves; -md/-lg/-xl/-2xl/-full are left alone (modals, popovers,
+	// pills, avatars use those and Phase 5 doesn't call for touching them).
+	// -----------------------------------------------------------------
+	--border-radius: var(--hy-radius);
+	--border-radius-sm: var(--hy-radius);
+	--border-radius-tiny: var(--hy-radius);
+
+	// -----------------------------------------------------------------
+	// Borders over shadows.
+	// -----------------------------------------------------------------
+	--btn-shadow: none;
+	--card-shadow: none;
+
+	// -----------------------------------------------------------------
+	// Font stack — feeds Bootstrap's $font-family-base at runtime, since
+	// Frappe's typography.scss assigns that Sass var to var(--font-stack)
+	// rather than baking a literal in at compile time.
+	// -----------------------------------------------------------------
+	--font-stack: var(--hy-font-sans), "-apple-system", "BlinkMacSystemFont", "Segoe UI",
+		"Roboto", sans-serif;
+
+	// -----------------------------------------------------------------
+	// Page background (decision: page canvas goes warm off-white; --fg-color
+	// / card surfaces stay pure white so cards still lift off the page —
+	// Frappe already treats --bg-color/--fg-color as separate layers).
+	// -----------------------------------------------------------------
+	--bg-color: var(--hy-white);
+
+	// -----------------------------------------------------------------
+	// Sidebar rail (.body-sidebar) — v16's real desk nav is a 50px/220px
+	// hover-expand icon rail, not the classic wide workspace tree. These
+	// three custom properties are dedicated to it (single call site each
+	// in desk/sidebar.scss), so overriding at :root is safe and scoped
+	// in effect. Overlay states reuse Frappe's own --white-overlay-* scale
+	// rather than inventing new tokens, matching "translucent-overlay".
+	// -----------------------------------------------------------------
+	--sidebar-hover-color: var(--white-overlay-100);
+	--sidebar-active-color: var(--white-overlay-200);
+	--sidebar-border-color: var(--hy-teal-700);
+	--divider-color: var(--white-overlay-100);
+
+	// v16's navbar reads background from --navbar-bg exclusively.
+	--navbar-bg: var(--hy-teal-600);
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar rail — background + light-teal item text/icons (scoped: --ink-gray-*
+// and --icon-stroke are shared globals used elsewhere, so text/icon color is
+// flipped locally inside .body-sidebar rather than at :root).
+// ---------------------------------------------------------------------------
+
+.body-sidebar {
+	background: var(--hy-teal-600);
+	--icon-stroke: var(--hy-teal-100);
+
+	.item-anchor {
+		color: var(--hy-teal-100);
+	}
+
+	.sidebar-item-label {
+		color: var(--hy-teal-50);
+	}
+
+	.section-break {
+		color: var(--hy-teal-300) !important;
+	}
+}
+
+.sidebar-header {
+	.header-logo-container {
+		background-color: var(--white-overlay-100);
+	}
+
+	.header-title {
+		color: var(--hy-white);
+	}
+
+	.header-subtitle {
+		color: var(--hy-teal-100);
+	}
+}
+
+// ---------------------------------------------------------------------------
+// Navbar — light-on-dark content flip (--icon-stroke scoped locally so it
+// doesn't affect icons elsewhere on the page).
+// ---------------------------------------------------------------------------
+
+.navbar {
+	color: var(--hy-white);
+	--icon-stroke: var(--hy-white);
+
+	.nav-item,
+	.nav-link {
+		color: var(--hy-teal-50);
+	}
+
+	.search-bar .search-icon {
+		background-color: var(--white-overlay-100);
+	}
+}
+
+// ---------------------------------------------------------------------------
+// Page headers — brand-consistent accent, not a solid teal fill (that
+// treatment is reserved for the sidebar/navbar chrome per the plan's own
+// framing of the sidebar as "the closest true match to the reference's
+// signature surface" — filling every page header would fight readability
+// across 118 doctypes). Verify this reading once a live bench is available.
+// ---------------------------------------------------------------------------
+
+.page-head {
+	border-bottom-color: var(--hy-teal-100);
+}
+
+// ---------------------------------------------------------------------------
+// Type scale (Findings table). Applied to raw heading tags plus .page-title's
+// title-text, which is the desk's closest h1-equivalent surface — the exact
+// page-title markup needs confirming against a live bench.
+// ---------------------------------------------------------------------------
+
+h1,
+.page-title .title-text {
+	font-family: var(--hy-font-display);
+	font-weight: 600;
+	font-size: 38px;
+	line-height: 56px;
+}
+
+h2 {
+	font-family: var(--hy-font-sans);
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 28px;
+	text-transform: uppercase;
+}
+
+h3 {
+	font-family: var(--hy-font-sans);
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 28px;
+}
+
+body {
+	font-family: var(--hy-font-sans);
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 22px;
+}
+
+// ---------------------------------------------------------------------------
+// Cards — border instead of shadow (frappe-card's radius/shadow are hardcoded
+// literals in the vendored form.scss/card.scss, not custom properties, so
+// they need a direct rule here rather than a token override).
+// ---------------------------------------------------------------------------
+
+.frappe-card {
+	border-radius: var(--hy-radius);
+	box-shadow: none;
+	border: 1px solid var(--border-color);
+}

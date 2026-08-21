@@ -1,7 +1,8 @@
 <template>
 	<div class="flex items-center">
 		<!-- Month Change -->
-		<div class="flex items-center bg-gray-50 rounded-md space-x-0.5">
+		<!-- HYOSHII BRAND -->
+		<div class="flex items-center bg-surface-gray-1 rounded-sm space-x-0.5">
 			<Button icon="chevron-left" variant="ghost" @click="emit('addToMonth', -1)" />
 			<span class="w-32 text-center font-medium text-base">
 				{{ props.firstOfMonth.format("MMMM") }}, {{ firstOfMonth.format("YYYY") }}

@@ -62,19 +62,20 @@
 				class="mt-6 space-y-6"
 			>
 				<hr />
-				<h4 class="font-semibold">Schedule Settings</h4>
+				<!-- HYOSHII BRAND -->
+				<h3>Schedule Settings</h3>
 				<div class="grid grid-cols-2 gap-6">
 					<div class="space-y-1.5">
-						<div class="text-xs text-gray-600">Repeat On Days</div>
+						<div class="text-xs text-ink-gray-5">Repeat On Days</div>
 						<div
-							class="border rounded grid grid-flow-col h-7 justify-stretch overflow-clip"
+							class="border rounded-sm grid grid-flow-col h-7 justify-stretch overflow-clip"
 						>
 							<div
 								v-for="(isSelected, day) of repeatOnDays"
 								class="cursor-pointer flex flex-col"
 								:class="{
 									'border-r': day !== 'Sunday',
-									'bg-gray-100 text-gray-500': !isSelected,
+									'bg-surface-gray-2 text-ink-gray-4': !isSelected,
 									'pointer-events-none': !!props.shiftAssignmentName,
 								}"
 								@click="repeatOnDays[day] = !repeatOnDays[day]"

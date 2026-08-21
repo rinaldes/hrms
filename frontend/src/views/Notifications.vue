@@ -4,24 +4,24 @@
 			<div class="flex flex-col h-screen w-screen">
 				<div class="w-full sm:w-96">
 					<header
-						class="flex flex-row bg-white shadow-sm py-4 px-3 items-center justify-between border-b sticky top-0 z-10"
+						class="flex flex-row bg-surface-white shadow-sm py-4 px-3 items-center justify-between border-b sticky top-0 z-10"
 					>
 						<div class="flex flex-row items-center">
 							<Button
 								variant="ghost"
-								class="!pl-0 hover:bg-white"
+								class="!pl-0 hover:bg-surface-white"
 								@click="router.back()"
 							>
 								<FeatherIcon name="chevron-left" class="h-5 w-5" />
 							</Button>
-							<h2 class="text-xl font-semibold text-gray-900">{{ __("Notifications") }} </h2>
+							<h2 class="text-xl font-semibold text-ink-gray-9">{{ __("Notifications") }} </h2>
 						</div>
 					</header>
 
 					<div class="flex flex-col gap-4 mt-5 p-4">
 						<div class="flex flex-row justify-between items-center">
 							<div
-								class="text-lg text-gray-800 font-semibold"
+								class="text-lg text-ink-gray-8 font-semibold"
 								v-if="unreadNotificationsCount.data"
 							>
 								{{ __("{0} Unread", [unreadNotificationsCount.data]) }}
@@ -52,7 +52,7 @@
 						</div>
 
 						<div
-							class="flex flex-col bg-white rounded"
+							class="flex flex-col bg-surface-white rounded"
 							v-if="notifications.data?.length"
 						>
 							<router-link
@@ -69,10 +69,10 @@
 								<EmployeeAvatar :userID="item.from_user" size="lg" />
 								<div class="flex flex-col gap-0.5 grow ml-3">
 									<div
-										class="text-sm leading-5 font-normal text-gray-800"
+										class="text-sm leading-5 font-normal text-ink-gray-8"
 										v-html="item.message"
 									></div>
-									<div class="text-xs font-normal text-gray-500">
+									<div class="text-xs font-normal text-ink-gray-4">
 										{{ dayjs(item.creation).fromNow() }}
 									</div>
 								</div>

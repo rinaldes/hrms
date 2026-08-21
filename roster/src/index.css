@@ -1,1 +1,46 @@
 @import "frappe-ui/src/style.css";
+/* HYOSHII BRAND — brand tokens sourced from the shared layer (Phase 2 of
+ * plans/rebrands.md), not duplicated locally. Canonical ramp lives in
+ * frontend/src/theme/brand.css; roster/vite.config.js's server.fs.allow was widened
+ * to the repo root so the dev server can reach outside roster/'s own project root.
+ */
+@import "../../frontend/src/theme/brand.css";
+
+:root {
+	font-family: var(--font-sans);
+}
+
+/* HYOSHII BRAND — type scale per plans/rebrands.md Findings. Public Sans and Outfit
+ * are self-hosted via the shared brand.css's @font-face rules (Phase 2).
+ */
+@layer base {
+	h1 {
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 2.375rem;
+		line-height: 3.5rem;
+	}
+	.subtitle {
+		font-family: var(--font-display);
+		font-weight: 400;
+		font-size: 1.125rem;
+		line-height: 1.5rem;
+		letter-spacing: 0.15px;
+	}
+	h2 {
+		font-weight: 700;
+		font-size: 1.125rem;
+		line-height: 1.75rem;
+		text-transform: uppercase;
+	}
+	h3 {
+		font-weight: 500;
+		font-size: 1.125rem;
+		line-height: 1.75rem;
+	}
+	body {
+		font-weight: 500;
+		font-size: 0.9375rem;
+		line-height: 1.375rem;
+	}
+}

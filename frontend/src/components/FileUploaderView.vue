@@ -1,13 +1,13 @@
 <template>
 	<div class="flex flex-col gap-3 py-4">
 		<label class="file-select">
-			<h2 class="text-base font-semibold text-gray-800 pb-4">{{ __("Attachments") }} </h2>
+			<h2 class="text-base font-semibold text-ink-gray-8 pb-4">{{ __("Attachments") }} </h2>
 			<div class="select-button cursor-pointer">
 				<div
 					class="flex flex-col w-full border shadow-sm items-center rounded p-3 gap-2"
 				>
-					<FeatherIcon name="upload" class="h-6 w-6 text-gray-700" />
-					<span class="block text-sm font-normal leading-5 text-gray-700">
+					<FeatherIcon name="upload" class="h-6 w-6 text-ink-gray-7" />
+					<span class="block text-sm font-normal leading-5 text-ink-gray-7">
 						{{ __("Upload images or documents") }}
 					</span>
 				</div>
@@ -25,19 +25,19 @@
 		<div v-if="modelValue.length" class="w-full">
 			<ul class="w-full flex flex-col items-center gap-2">
 				<li
-					class="bg-gray-100 rounded p-2 w-full"
+					class="bg-surface-gray-2 rounded p-2 w-full"
 					v-for="(file, index) in modelValue"
 					:key="index"
 				>
 					<div
-						class="flex flex-row items-center justify-between text-gray-700 text-sm"
+						class="flex flex-row items-center justify-between text-ink-gray-7 text-sm"
 					>
 						<span class="grow" @click="showFilePreview(file)">
 							{{ file.file_name || file.name }}
 						</span>
 						<FeatherIcon
 							name="x"
-							class="h-4 w-4 cursor-pointer text-gray-700"
+							class="h-4 w-4 cursor-pointer text-ink-gray-7"
 							@click="() => confirmDeleteAttachment(file)"
 						/>
 					</div>

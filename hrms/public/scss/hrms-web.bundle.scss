@@ -1,0 +1,293 @@
+// HYOSHII BRAND — Phase 6 (login page) + Phase 7 (rest of the website).
+//
+// Website-facing counterpart to _brand.scss (Phase 5, desk-scoped). app_include_css
+// only reaches /app (the desk shell) — website routes like /login and /jobs load CSS
+// via web_include_css instead (frappe/templates/includes/head.html), which is a
+// *sitewide* hook with no route-scoping at the hook level: everything in this file
+// reaches every website page.
+//
+// Phase 6 left --primary/--btn-primary/--border-primary/--border-radius-sm/-tiny
+// scoped to .for-login/.for-email-login rather than bare :root, because those names
+// have known consumers in Frappe's own core CSS (Phase 0's desk audit) that were
+// never confirmed website-safe — explicitly flagging it as "Phase 7's job" to verify
+// and promote to :root once it is. Confirmed here: website/variables.scss aliases
+// $border-radius/-sm/-lg straight to var(--border-radius...) (a Sass !default assigned
+// to a CSS var reference, so it passes through unevaluated — unlike the desk, per
+// Phase 0's reachability-boundary finding, confirmed by reading that file directly),
+// and Frappe's own common/buttons.scss defines `.btn.btn-primary { background-color:
+// var(--btn-primary) }`, which beats Bootstrap's compiled `.btn-primary` on both
+// specificity (two classes vs one) and source order. So all six ARE genuinely
+// reachable via custom property here and now live at :root below, sitewide.
+//
+// What's still compile-time-baked and NOT reachable this way: raw Bootstrap utility
+// classes that don't go through one of those two levers — .text-primary, .bg-primary,
+// unstyled link/hover colors, pagination/badge/alert primary variants, etc. (same
+// espresso/_colors.scss `$primary: $gray-900` Phase 0 found for the desk, shared by
+// this bundle's website.bundle.scss). That surface can only be reached by actually
+// recompiling Bootstrap's own $primary, which is what the Website Theme record does
+// (hrms.patches.v16_0.apply_hyoshii_website_branding) — the one part of "apply the
+// established tokens" that isn't CSS at all.
+//
+// _brand.scss's SELECTOR rules are still not reused wholesale (importing the file
+// also imports its selectors, several of which assumed desk-only reach incorrectly —
+// see its own header). Frappe's public website navbar renders under `.navbar-light`
+// (frappe/templates/includes/navbar/navbar.html) — recolored below, scoped to that
+// specific class rather than bare `.navbar`, so there's no ambiguity with _brand.scss's
+// own `.navbar` rule even though the two bundles never load on the same route anyway.
+// Login-specific rules stay scoped to `.for-login`/`.for-email-login` (see
+// hrms/www/login.html) or to `.hy-login-*` classes introduced there.
+//
+// Duplicates a handful of --hy-teal-*/--hy-white hex literals from _brand.scss rather
+// than @import-ing it, for the reason above (importing the file also imports its
+// selectors). Same gap _brand.scss already flagged for the desk/PWA/roster split —
+// fold both into one real shared partial when Phase 2's token layer is revisited.
+
+@font-face {
+	font-family: "Public Sans";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("/assets/hrms/fonts/PublicSans-Variable.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Outfit";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("/assets/hrms/fonts/Outfit-Variable.woff2") format("woff2");
+}
+
+:root {
+	--hy-teal-50: #f4fafa;
+	--hy-teal-600: #1d494a;
+	--hy-teal-700: #173e3f;
+	--hy-white: #fbfaf7;
+	--hy-radius: 0.125rem;
+	--hy-font-sans: "Public Sans", var(--font-stack);
+	--hy-font-display: "Outfit", var(--font-stack);
+
+	// Sitewide by design, not by oversight: --bg-color/--font-stack are genuinely
+	// selector-free (they're inert until something consumes them) and this is
+	// exactly what Phase 7 ("apply the established tokens" to the rest of the
+	// website) wants applied everywhere anyway — arriving a phase early here is
+	// net-positive, per Phase 6's own Results note.
+	--bg-color: var(--hy-white);
+	--font-stack: var(--hy-font-sans), "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+		sans-serif;
+
+	// Phase 7: promoted from .for-login/.for-email-login (see header comment) now
+	// that reachability is confirmed sitewide-safe. Anchors on 600 per Findings.
+	--primary: var(--hy-teal-600);
+	--primary-color: var(--hy-teal-600);
+	--btn-primary: var(--hy-teal-600);
+	--border-primary: var(--hy-teal-600);
+	--border-radius: var(--hy-radius);
+	--border-radius-sm: var(--hy-radius);
+	--border-radius-tiny: var(--hy-radius);
+}
+
+// ---------------------------------------------------------------------------
+// Type scale (Findings table) — sitewide. Unlike the desk (where
+// desk/typography.scss's $font-family-base is already `var(--font-stack)`,
+// per _brand.scss's own comment), the website's body font-family is never wired
+// to --font-stack at all — only `kbd` does that in frappe's base.scss, confirmed by
+// reading it directly. Bootstrap's own $font-family-sans-serif default applies
+// otherwise, so this needs the explicit font-family declarations below; they aren't
+// inherited "for free" the way they are on /app.
+// ---------------------------------------------------------------------------
+
+h1 {
+	font-family: var(--hy-font-display);
+	font-weight: 600;
+	font-size: 38px;
+	line-height: 56px;
+}
+
+h2 {
+	font-family: var(--hy-font-sans);
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 28px;
+	text-transform: uppercase;
+}
+
+h3 {
+	font-family: var(--hy-font-sans);
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 28px;
+}
+
+body {
+	font-family: var(--hy-font-sans);
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 22px;
+}
+
+// Findings' "never pure white" rule (--hy-white/#fbfaf7), applied here the same way
+// Phase 3 applied it on the PWA (retargeting Tailwind's `white` color key): Bootstrap's
+// compiled `.bg-white` utility (jobs/index.html and jobs/index.css use it repeatedly —
+// buttons, pagination, the mobile filters drawer) is `background-color: $white
+// !important`, a compile-time literal with no custom-property lever, so it needs its
+// own !important to win rather than a token it could otherwise just consume.
+.bg-white {
+	background-color: var(--bg-color) !important;
+}
+
+// ---------------------------------------------------------------------------
+// Public navbar → dark teal, light-on-dark content. Same chrome convention as
+// the PWA header (Phase 3), roster NavBar (Phase 4), and desk navbar/sidebar
+// (Phase 5) — decision 6 generalized to the one remaining chrome surface, per
+// this file's own prior header comment flagging it as unaddressed. Scoped to
+// .navbar-light, the actual rendered class (frappe/templates/includes/navbar/
+// navbar.html) — not bare .navbar, which is _brand.scss's own, desk-only class
+// in a different bundle.
+// ---------------------------------------------------------------------------
+
+.navbar-light {
+	background: var(--hy-teal-600);
+	border-bottom: none;
+	--icon-stroke: var(--hy-white);
+
+	.navbar-brand,
+	.navbar-nav .nav-link {
+		color: var(--hy-white);
+	}
+
+	.navbar-nav .nav-link:hover,
+	.navbar-nav .nav-link:focus,
+	.navbar-nav .nav-link.active {
+		color: var(--hy-teal-50);
+	}
+
+	.navbar-toggler {
+		border-color: rgba(255, 255, 255, 0.2);
+	}
+}
+
+// The top-bar CTA (Website Settings' call_to_action) renders `.btn.btn-primary`
+// inside the navbar, which now resolves to the same --btn-primary teal as the bar
+// itself (see :root above) — without this override an active CTA would be an
+// invisible teal-on-teal button. Flipped light-on-dark like every other
+// chrome-surface control in this plan (BaseLayout.vue's bell, BottomTabs.vue's
+// active tab, NavBar.vue's breadcrumb).
+.navbar-cta.btn-primary {
+	background-color: var(--hy-white);
+	color: var(--hy-teal-600);
+
+	&:hover,
+	&:focus,
+	&:active {
+		background-color: var(--hy-teal-50);
+		color: var(--hy-teal-700);
+	}
+}
+
+// ---------------------------------------------------------------------------
+// Login page — decorative frame, logo/heading, button color.
+//
+// Scoped to .for-login/.for-email-login, the two sections in the login.html override
+// that got the frame treatment (forgot/signup/email-link keep stock Frappe styling —
+// out of the plan's "the login card" scope).
+// ---------------------------------------------------------------------------
+
+.for-login,
+.for-email-login {
+	// The six --primary/--btn-primary/--border-primary/--border-radius-* properties
+	// that used to be scoped here (2026-08-21 ordering-audit pass) now live at bare
+	// :root above — Phase 7 confirmed and promoted them sitewide, see this file's
+	// header comment. Nothing left to override locally; the login card just inherits
+	// the sitewide values like every other page.
+
+	// Positioning root for the corner shapes. Deliberately carries the card's own
+	// max-width/centering instead of .page-card, so the frame's box exactly coincides
+	// with the card's box and the absolutely-positioned shapes land on its real
+	// corners — a plain wrapper around .page-card would inherit the section's full
+	// width instead, misaligning them (.page-card centers *itself* via margin:auto).
+	.hy-login-frame {
+		position: relative;
+		isolation: isolate; // keeps the shapes' z-index:-1 scoped here, so they paint
+		// behind .page-card's own opaque background instead of
+		// escaping to some ancestor stacking context further up.
+		max-width: 371px; // matches frappe/public/scss/login.bundle.scss's .page-card
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	.page-card {
+		max-width: none; // width now governed by .hy-login-frame instead
+		margin: 0;
+	}
+
+	// Two square outline shapes peeking from the card's corners — ported from
+	// bgShape1/bgShape2 in ~/Project/ms/hyoshii-login/kindeSrc/layouts/default.tsx as
+	// proportions of the card's own 371px width (that reference uses fixed 151px
+	// shapes / -77px·-76px offsets against a card whose own rendered width isn't
+	// fixed, so there's no exact ratio to port — sized here to roughly the reference's
+	// own size/offset/radius *ratios*, not its literal pixels): shape ≈ 26% of card
+	// width, offset ≈ 51% of the shape's own size (the reference's straddle ratio, i.e.
+	// about half the shape sits behind the card and half peeks past its edge), corner
+	// radius ≈ 13% of shape size.
+	.hy-login-shape {
+		position: absolute;
+		width: 96px;
+		height: 96px;
+		border-radius: 13px;
+		z-index: -1;
+		pointer-events: none;
+	}
+
+	.hy-login-shape-1 {
+		top: -49px;
+		left: -49px;
+		border: 1px solid var(--hy-teal-600);
+	}
+
+	.hy-login-shape-2 {
+		bottom: -49px;
+		right: -49px;
+		border: 2px dashed var(--hy-teal-600);
+		opacity: 0.5;
+	}
+
+	@media (max-width: 575.98px) {
+		// The mobile .page-card goes full-bleed (max-width:100%, border-radius:0,
+		// min-height:100svh — login.bundle.scss) — there's no exposed card corner left
+		// to frame, so the shapes hide rather than shrink/reposition. The frame itself
+		// still needs to widen to match, or it'd cap the card at 371px on mobile too.
+		.hy-login-shape {
+			display: none;
+		}
+
+		.hy-login-frame {
+			max-width: 100%;
+		}
+	}
+
+	.hy-login-logo svg {
+		display: block;
+		width: 32px; // matches frappe's own img.app-logo max-height, the slot this
+		height: auto; // replaces
+	}
+
+	.page-card-head h4 {
+		font-family: var(--hy-font-display);
+		font-weight: 600;
+	}
+
+	.btn-login {
+		background: var(--hy-teal-600);
+
+		&:hover,
+		&:focus,
+		&:active {
+			background: var(--hy-teal-700);
+		}
+
+		&:disabled {
+			background: var(--hy-teal-600);
+		}
+	}
+}

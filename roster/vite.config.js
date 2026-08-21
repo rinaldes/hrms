@@ -10,6 +10,12 @@ export default defineConfig({
 		port: 8081,
 		proxy: getProxyOptions(),
 		allowedHosts: true,
+		// HYOSHII BRAND — roster/'s own yarn.lock anchors Vite's default fs.allow at
+		// roster/, but the shared brand layer (Phase 2 of plans/rebrands.md) lives in
+		// ../frontend/src/theme/. Widen to the repo root so the dev server can serve it.
+		fs: {
+			allow: [path.resolve(__dirname, "..")],
+		},
 	},
 	resolve: {
 		alias: {

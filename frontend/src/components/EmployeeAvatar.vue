@@ -6,7 +6,7 @@
 			:image="employee?.image"
 			:size="props.size"
 		/>
-		<div class="text-base text-gray-800 grow">
+		<div class="text-base text-ink-gray-8 grow">
 			{{ employee?.employee_name || props.employeeID }}
 		</div>
 	</div>

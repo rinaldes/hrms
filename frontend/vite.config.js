@@ -22,13 +22,14 @@ export default defineConfig({
 			devOptions: {
 				enabled: true,
 			},
+			// HYOSHII BRAND
 			manifest: {
 				display: "standalone",
-				name: "Frappe HR",
-				short_name: "Frappe HR",
+				name: "Hyōshii HR",
+				short_name: "Hyōshii HR",
 				start_url: "/hrms",
 				description: "Everyday HR & Payroll operations at your fingertips",
-				theme_color: "#ffffff",
+				theme_color: "#1d494a",
 				icons: [
 					{
 						src: "/assets/hrms/manifest/manifest-icon-192.maskable.png",

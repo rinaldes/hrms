@@ -1,29 +1,29 @@
 <template>
 	<div class="flex flex-col gap-5 w-full">
 		<div class="flex flex-row justify-between items-center">
-			<div class="text-lg text-gray-800 font-bold">{{ __("Upcoming Holidays") }}</div>
+			<div class="text-lg text-ink-gray-8 font-bold">{{ __("Upcoming Holidays") }}</div>
 			<div
 				v-if="holidays?.data?.length"
 				id="open-holiday-list"
-				class="text-sm text-gray-800 font-semibold cursor-pointer underline underline-offset-2"
+				class="text-sm text-ink-gray-8 font-semibold cursor-pointer underline underline-offset-2"
 			>
 				{{ __("View All") }}
 			</div>
 		</div>
 
-		<div class="flex flex-col bg-white rounded" v-if="upcomingHolidays?.length">
+		<div class="flex flex-col bg-surface-white rounded" v-if="upcomingHolidays?.length">
 			<div
 				class="flex flex-row flex-start p-4 items-center justify-between border-b"
 				v-for="holiday in upcomingHolidays"
 				:key="holiday.holiday_date"
 			>
 				<div class="flex flex-row items-center gap-3 grow">
-					<FeatherIcon name="calendar" class="h-5 w-5 text-gray-500" />
-					<div class="text-base font-normal text-gray-800">
+					<FeatherIcon name="calendar" class="h-5 w-5 text-ink-gray-4" />
+					<div class="text-base font-normal text-ink-gray-8">
 						{{ __(holiday.description) }}
 					</div>
 				</div>
-				<div class="text-base font-bold text-gray-800">
+				<div class="text-base font-bold text-ink-gray-8">
 					{{ holiday.formatted_holiday_date }}
 				</div>
 			</div>
@@ -39,9 +39,9 @@
 		:initial-breakpoint="1"
 		:breakpoints="[0, 1]"
 	>
-		<div class="bg-white w-full flex flex-col items-center justify-center pb-5">
+		<div class="bg-surface-white w-full flex flex-col items-center justify-center pb-5">
 			<div class="w-full pt-8 pb-5 border-b text-center">
-				<span class="text-gray-900 font-bold text-lg">{{ __("Holiday List") }}</span>
+				<span class="text-ink-gray-9 font-bold text-lg">{{ __("Holiday List") }}</span>
 			</div>
 			<div class="w-full flex flex-col items-center justify-center gap-5 p-4">
 				<div
@@ -50,15 +50,15 @@
 					class="flex flex-row items-center justify-between w-full"
 				>
 					<div class="flex flex-row items-center gap-3 grow">
-						<FeatherIcon name="calendar" class="h-5 w-5 text-gray-500" />
-						<div class="text-base font-normal text-gray-800">
+						<FeatherIcon name="calendar" class="h-5 w-5 text-ink-gray-4" />
+						<div class="text-base font-normal text-ink-gray-8">
 							{{ __(holiday.description) }}
 						</div>
 					</div>
 					<div
 						:class="[
 							'text-base font-bold',
-							holiday.is_upcoming ? 'text-gray-800' : 'text-gray-500',
+							holiday.is_upcoming ? 'text-ink-gray-8' : 'text-ink-gray-4',
 						]"
 					>
 						{{ holiday.formatted_holiday_date }}

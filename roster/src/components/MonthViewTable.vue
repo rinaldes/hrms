@@ -1,11 +1,12 @@
 <template>
+	<!-- HYOSHII BRAND -->
 	<div
-		class="rounded-lg border overflow-auto max-h-[45rem]"
+		class="rounded-sm border overflow-auto max-h-[45rem]"
 		:class="loading && 'animate-pulse pointer-events-none'"
 	>
 		<table class="border-separate border-spacing-0">
 			<thead>
-				<tr class="sticky top-0 bg-white z-10">
+				<tr class="sticky top-0 bg-surface-white z-10">
 					<!-- Employee Search -->
 					<th class="p-2 border-b">
 						<Autocomplete
@@ -48,7 +49,7 @@
 								<div class="truncate text-base font-medium">
 									{{ employee.employee_name }}
 								</div>
-								<div class="mt-auto text-xs text-gray-500 truncate">
+								<div class="mt-auto text-xs text-ink-gray-4 truncate">
 									{{ employee.designation }}
 								</div>
 							</div>
@@ -72,7 +73,7 @@
 								events.data?.[employee.name]?.[day.date]?.holiday,
 							'align-middle bg-pink-50':
 								events.data?.[employee.name]?.[day.date]?.leave,
-							'bg-gray-50':
+							'bg-surface-gray-1':
 								dropCell.employee === employee.name &&
 								dropCell.date === day.date &&
 								!(
@@ -158,7 +159,7 @@
 								@dragend="
 									if (!loading) dropCell = { employee: '', date: '', shift: '' };
 								"
-								class="rounded border-2 p-2 cursor-pointer"
+								class="rounded-sm border-2 p-2 cursor-pointer"
 								:class="[
 									shift.status === 'Inactive' && 'border-dashed',
 									dropCell.employee === employee.name &&
@@ -193,11 +194,11 @@
 								>
 									{{ shift["shift_type"] }}
 								</div>
-								<div class="text-xs text-gray-500 pointer-events-none space-y-1.5">
+								<div class="text-xs text-ink-gray-4 pointer-events-none space-y-1.5">
 									<div class="flex items-center space-x-1">
 										<FeatherIcon
 											name="clock"
-											class="stroke-gray-400"
+											class="stroke-ink-gray-3"
 											style="
 												 {
 													height: 0.82rem;
@@ -215,7 +216,7 @@
 									>
 										<FeatherIcon
 											name="map-pin"
-											class="stroke-gray-400"
+											class="stroke-ink-gray-3"
 											style="
 												 {
 													height: 0.82rem;
@@ -232,7 +233,7 @@
 							<Button
 								variant="outline"
 								icon="plus"
-								class="border-2 active:bg-white w-full"
+								class="border-2 active:bg-surface-white w-full"
 								:class="
 									hoveredCell.employee === employee.name &&
 									hoveredCell.date === day.date &&
@@ -515,6 +516,7 @@ const sortShiftsByStartTime = (mappedEvents: MappedEvents, employee: string, key
 </script>
 
 <style>
+/* HYOSHII BRAND */
 th,
 td {
 	@apply max-w-36 min-w-36;
@@ -523,10 +525,10 @@ td {
 
 th:first-child,
 td:first-child {
-	@apply sticky left-0 max-w-64 min-w-64 bg-white border-r;
+	@apply sticky left-0 max-w-64 min-w-64 bg-surface-white border-r;
 }
 
 .blocked-cell {
-	@apply text-sm text-gray-500 text-center p-2;
+	@apply text-sm text-ink-gray-4 text-center p-2;
 }
 </style>

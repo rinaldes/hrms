@@ -6,7 +6,7 @@
 	>
 		<circle cx="24" cy="24" r="9" fill="#fff"></circle>
 		<circle
-			class="stroke-current text-gray-200"
+			class="stroke-current text-ink-gray-1"
 			cx="24"
 			cy="24"
 			r="9"

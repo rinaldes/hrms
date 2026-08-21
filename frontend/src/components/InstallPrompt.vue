@@ -2,7 +2,7 @@
 	<!-- Install PWA dialog -->
 	<Dialog v-model="showDialog">
 		<template #body-title>
-			<h2 class="text-lg font-bold">{{ __("Install Frappe HR") }} </h2>
+			<h2 class="text-lg font-bold">{{ __("Install Hyōshii HR") }} </h2>
 		</template>
 		<template #body-content>
 			<p>{{ __("Get the app on your device for easy access & a better experience!") }} </p>
@@ -24,18 +24,18 @@
 				<div
 					class="flex flex-row text-center items-center justify-between mb-1 px-3"
 				>
-					<span class="text-base text-gray-900 font-bold">
-						{{ __("Install Frappe HR") }}
+					<span class="text-base text-ink-gray-9 font-bold">
+						{{ __("Install Hyōshii HR") }}
 					</span>
 					<span class="inline-flex items-baseline">
 						<FeatherIcon
 							name="x"
-							class="ml-auto h-4 w-4 text-gray-700"
+							class="ml-auto h-4 w-4 text-ink-gray-7"
 							@click="iosInstallMessage = false"
 						/>
 					</span>
 				</div>
-				<div class="text-xs text-gray-800 px-3">
+				<div class="text-xs text-ink-gray-8 px-3">
 					<span class="flex flex-col gap-2">
 						<span>
 							{{ __("Get the app on your iPhone for easy access & a better experience") }}

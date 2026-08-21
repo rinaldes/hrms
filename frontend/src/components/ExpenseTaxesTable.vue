@@ -1,9 +1,9 @@
 <template>
 	<template v-if="expenseClaim.expenses">
 		<div class="flex flex-row justify-between items-center pt-4">
-			<h2 class="text-base font-semibold text-gray-800">{{ __("Taxes & Charges") }} </h2>
+			<h2 class="text-base font-semibold text-ink-gray-8">{{ __("Taxes & Charges") }} </h2>
 			<div class="flex flex-row gap-3 items-center">
-				<span class="text-base font-semibold text-gray-800">
+				<span class="text-base font-semibold text-ink-gray-8">
 					{{ formatCurrency(expenseClaim.total_taxes_and_charges, expenseClaim.currency) }}
 				</span>
 				<Button
@@ -19,7 +19,7 @@
 
 		<div
 			v-if="expenseClaim.taxes?.length"
-			class="flex flex-col bg-white mt-5 rounded border overflow-auto"
+			class="flex flex-col bg-surface-white mt-5 rounded border overflow-auto"
 		>
 			<div
 				class="flex flex-row p-3.5 items-center justify-between border-b cursor-pointer"
@@ -31,10 +31,10 @@
 					<div class="flex flex-row items-center justify-between">
 						<div class="flex flex-row items-start gap-3 grow">
 							<div class="flex flex-col items-start gap-1.5">
-								<div class="text-base font-normal text-gray-800">
+								<div class="text-base font-normal text-ink-gray-8">
 									{{ item.account_head }}
 								</div>
-								<div class="text-xs font-normal text-gray-500">
+								<div class="text-xs font-normal text-ink-gray-4">
 									<span> Rate: {{ formatCurrency(item.rate, expenseClaim.currency) }} </span>
 									<span class="whitespace-pre"> &middot; </span>
 									<span class="whitespace-nowrap">
@@ -44,10 +44,10 @@
 							</div>
 						</div>
 						<div class="flex flex-row justify-end items-center gap-2">
-							<span class="text-gray-700 font-normal rounded text-base">
+							<span class="text-ink-gray-7 font-normal rounded text-base">
 								{{ formatCurrency(item.total, expenseClaim.currency) }}
 							</span>
-							<FeatherIcon name="chevron-right" class="h-5 w-5 text-gray-500" />
+							<FeatherIcon name="chevron-right" class="h-5 w-5 text-ink-gray-4" />
 						</div>
 					</div>
 				</div>
@@ -59,10 +59,10 @@
 			<template #actionSheet>
 				<!-- Add Expense Tax Action Sheet -->
 				<div
-					class="bg-white w-full flex flex-col items-center justify-center pb-5"
+					class="bg-surface-white w-full flex flex-col items-center justify-center pb-5"
 				>
 					<div class="w-full pt-8 pb-5 border-b text-center">
-						<span class="text-gray-900 font-bold text-xl">
+						<span class="text-ink-gray-9 font-bold text-xl">
 							{{ modalTitle }}
 						</span>
 					</div>
@@ -105,7 +105,7 @@
 							</Button>
 							<Button
 								variant="solid"
-								class="w-full py-5 text-sm disabled:bg-gray-700 disabled:text-white"
+								class="w-full py-5 text-sm disabled:bg-surface-gray-5 disabled:text-ink-white"
 								@click="updateExpenseTax()"
 								:disabled="addButtonDisabled"
 							>

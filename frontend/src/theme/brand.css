@@ -1,0 +1,57 @@
+/* HYOSHII BRAND — shared token layer (Phase 2 of plans/rebrands.md).
+ *
+ * Canonical definition of the brand ramp for the CSS/Vite ecosystem — imported by
+ * both frontend/src/main.css (this app) and roster/src/index.css, so the values are
+ * written exactly once for these two apps (roster/vite.config.js's server.fs.allow
+ * was extended to let its dev server reach this file, which lives outside roster/'s
+ * own Vite project root).
+ *
+ * `hrms/public/scss/_brand.scss` carries the same values again for the desk, since
+ * that's a separate SCSS toolchain that can't consume this file directly — see
+ * Findings: "the ramp is written once per language (CSS, Tailwind, SCSS)".
+ *
+ * Named `--brand-*`, not `--teal-*`: frappe-ui's own Tailwind palette already ships an
+ * unrelated `teal` color family (`teal-600: #0b9e92`) wired into nothing semantic, and
+ * the desk's own `--teal-*` custom properties are a third, different color again. Reusing
+ * either name here would silently collide (see Findings / Phase 0 results).
+ */
+
+:root {
+	--brand-50: #f4fafa;
+	--brand-100: #e3f2f2;
+	--brand-200: #c4e2e3;
+	--brand-300: #8cc8ca;
+	--brand-400: #409396;
+	--brand-500: #46716e;
+	--brand-600: #1d494a; /* anchor — see Findings: "The brand anchor is 600, not 500" */
+	--brand-700: #173e3f;
+	--brand-800: #133435;
+	--brand-900: #0e292a;
+	--brand-950: #0a1e1f;
+
+	--color-white: #fbfaf7;
+	--color-black: #2f2b3de5;
+
+	--font-sans: "Public Sans", "InterVar", sans-serif;
+	--font-display: "Outfit", "InterVar", sans-serif;
+}
+
+/* Self-hosted variable fonts — served from hrms/public/fonts/ at /assets/hrms/fonts/
+ * by the same Frappe web server that serves this app, in both dev (proxied, see
+ * getProxyOptions() in vite.config.js) and production. No font CDN at runtime.
+ */
+@font-face {
+	font-family: "Public Sans";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("/assets/hrms/fonts/PublicSans-Variable.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Outfit";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("/assets/hrms/fonts/Outfit-Variable.woff2") format("woff2");
+}

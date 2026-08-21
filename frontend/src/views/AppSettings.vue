@@ -4,22 +4,22 @@
 			<div class="flex flex-col h-screen w-screen">
 				<div class="w-full sm:w-96">
 					<header
-						class="flex flex-row bg-white shadow-sm py-4 px-3 items-center justify-between border-b sticky top-0 z-10"
+						class="flex flex-row bg-surface-white shadow-sm py-4 px-3 items-center justify-between border-b sticky top-0 z-10"
 					>
 						<div class="flex flex-row items-center">
 							<Button
 								variant="ghost"
-								class="!pl-0 hover:bg-white"
+								class="!pl-0 hover:bg-surface-white"
 								@click="router.back()"
 							>
 								<FeatherIcon name="chevron-left" class="h-5 w-5" />
 							</Button>
-							<h2 class="text-xl font-semibold text-gray-900">{{ __("Settings") }} </h2>
+							<h2 class="text-xl font-semibold text-ink-gray-9">{{ __("Settings") }} </h2>
 						</div>
 					</header>
 
 					<div class="flex flex-col gap-5 my-4 w-full p-4">
-						<div class="flex flex-col bg-white rounded">
+						<div class="flex flex-col bg-surface-white rounded">
 							<div
 								class="flex flex-row cursor-pointer flex-start p-4 items-center justify-between border-b"
 							>
@@ -30,21 +30,21 @@
 									<div class="flex flex-row items-center gap-3 grow">
 										<FeatherIcon
 											name="lock"
-											class="h-5 w-5 text-gray-500"
+											class="h-5 w-5 text-ink-gray-4"
 										/>
-										<div class="text-base font-normal text-gray-800">
+										<div class="text-base font-normal text-ink-gray-8">
 											{{ __("Change Password") }}
 										</div>
 									</div>
 									<FeatherIcon
 										name="chevron-right"
-										class="h-5 w-5 text-gray-500"
+										class="h-5 w-5 text-ink-gray-4"
 									/>
 								</router-link>
 							</div>
 						</div>
 
-						<div class="flex flex-col bg-white rounded">
+						<div class="flex flex-col bg-surface-white rounded">
 							<Switch
 								size="md"
 								:label="__('Enable Push Notifications')"
@@ -60,8 +60,8 @@
 							v-if="isLoading"
 							class="flex -mt-2 items-center justify-center gap-2"
 						>
-							<LoadingIndicator class="w-3 h-3 text-gray-800" />
-							<span class="text-gray-900 text-sm">
+							<LoadingIndicator class="w-3 h-3 text-ink-gray-8" />
+							<span class="text-ink-gray-9 text-sm">
 								{{ pushNotificationState ? __("Disabling Push Notifications...") : __("Enabling Push Notifications...") }}
 							</span>
 						</div>

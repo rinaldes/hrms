@@ -1,5 +1,5 @@
 app_name = "hrms"
-app_title = "Frappe HR"
+app_title = "Hyōshii HR"  # HYOSHII BRAND
 app_publisher = "Frappe Technologies Pvt. Ltd."
 app_description = "Modern HR and Payroll Software"
 app_email = "contact@frappe.io"
@@ -13,7 +13,7 @@ add_to_apps_screen = [
 	{
 		"name": "hrms",
 		"logo": "/assets/hrms/images/frappe-hr-logo.svg",
-		"title": "Frappe HR",
+		"title": "Hyōshii HR",  # HYOSHII BRAND
 		"route": "/desk/people",
 		"has_permission": "hrms.hr.utils.check_app_permission",
 	}
@@ -32,7 +32,7 @@ app_include_css = "hrms.bundle.css"
 # website
 
 # include js, css files in header of web template
-# web_include_css = "/assets/hrms/css/hrms.css"
+web_include_css = "hrms-web.bundle.css"  # HYOSHII BRAND
 # web_include_js = "/assets/hrms/js/hrms.js"
 
 # include custom scss in every website theme (without file extension ".scss")

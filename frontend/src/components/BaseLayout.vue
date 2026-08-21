@@ -1,12 +1,17 @@
 <template>
 	<ion-page>
-		<ion-header class="ion-no-border">
+		<!-- HYOSHII BRAND — dark teal header (decision 6, Phase 3). bg-brand-600 +
+		standalone:pt-safe-top on ion-header itself (not just the inner div) so the
+		status-bar safe-area reads as teal instead of a white band; text-ink-white on
+		the content wrapper so the title and the FeatherIcon bell (which inherits
+		stroke="currentColor") both flip to light-on-dark without separate classes. -->
+		<ion-header class="ion-no-border bg-brand-600 standalone:pt-safe-top">
 			<div class="w-full sm:w-96">
-				<div class="flex flex-col bg-white shadow-sm p-4">
+				<div class="flex flex-col bg-brand-600 text-ink-white shadow-sm p-4">
 					<div class="flex flex-row justify-between items-center">
-						<div class="flex flex-row items-center gap-2">
-							<h2 class="text-xl font-bold text-gray-900">
-								{{ props.pageTitle || __("Frappe HR") }}
+					<div class="flex flex-row items-center gap-2">
+							<h2 class="text-xl font-bold text-ink-white">
+								{{ props.pageTitle || __("Hyōshii HR") }}
 							</h2>
 						</div>
 						<div class="flex flex-row items-center gap-3 ml-auto">
@@ -19,7 +24,7 @@
 									<FeatherIcon name="bell" class="h-6 w-6" />
 									<span
 										v-if="unreadNotificationsCount.data"
-										class="absolute top-0 right-0.5 inline-block w-2 h-2 bg-red-600 rounded-full border border-white"
+										class="absolute top-0 right-0.5 inline-block w-2 h-2 bg-red-600 rounded-full border border-outline-white"
 									>
 									</span>
 								</span>

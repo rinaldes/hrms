@@ -1,8 +1,8 @@
 <template>
 	<div class="flex flex-col w-full gap-5" v-if="calendarEvents.data">
-		<div class="text-lg text-gray-800 font-bold">{{ __("Attendance Calendar") }}</div>
+		<div class="text-lg text-ink-gray-8 font-bold">{{ __("Attendance Calendar") }}</div>
 
-		<div class="flex flex-col gap-6 bg-white py-6 px-3.5 rounded-lg border-none">
+		<div class="flex flex-col gap-6 bg-surface-white py-6 px-3.5 rounded-lg border-none">
 			<!-- Month Change -->
 			<div class="flex flex-row justify-between items-center px-4">
 				<Button
@@ -10,7 +10,7 @@
 					variant="ghost"
 					@click="firstOfMonth = firstOfMonth.subtract(1, 'M')"
 				/>
-				<span class="text-lg text-gray-800 font-bold">
+				<span class="text-lg text-ink-gray-8 font-bold">
 					{{ firstOfMonth.format("MMMM") }} {{ firstOfMonth.format("YYYY") }}
 				</span>
 				<Button
@@ -24,7 +24,7 @@
 			<div class="grid grid-cols-7 gap-y-3">
 				<div
 					v-for="day in DAYS"
-					class="flex justify-center text-gray-600 text-sm font-medium leading-6"
+					class="flex justify-center text-ink-gray-5 text-sm font-medium leading-6"
 				>
 					{{ day }}
 				</div>
@@ -34,7 +34,7 @@
 						class="h-8 w-8 flex rounded-full mx-auto"
 						:class="getEventOnDate(index) && colorMap[getEventOnDate(index)]"
 					>
-						<span class="text-gray-800 text-sm font-medium m-auto">
+						<span class="text-ink-gray-8 text-sm font-medium m-auto">
 							{{ index }}
 						</span>
 					</div>
@@ -48,9 +48,9 @@
 				<div v-for="status in summaryStatuses" class="flex flex-col gap-1">
 					<div class="flex flex-row gap-1 items-center">
 						<span class="rounded full h-3 w-3" :class="colorMap[status]" />
-						<span class="text-gray-600 text-sm font-medium leading-5"> {{ __(status) }} </span>
+						<span class="text-ink-gray-5 text-sm font-medium leading-5"> {{ __(status) }} </span>
 					</div>
-					<span class="text-gray-800 text-base font-semibold leading-6 mx-auto">
+					<span class="text-ink-gray-8 text-base font-semibold leading-6 mx-auto">
 						{{ summary[status] || 0 }}
 					</span>
 				</div>
@@ -73,7 +73,7 @@ const colorMap = {
 	"Half Day": "bg-yellow-200",
 	Absent: "bg-red-200",
 	"On Leave": "bg-blue-300",
-	Holiday: "bg-gray-300",
+	Holiday: "bg-surface-gray-4",
 }
 
 // __("Present"), __("Half Day"), __("Absent"), __("On Leave"), __("Work From Home")

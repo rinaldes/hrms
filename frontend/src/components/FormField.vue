@@ -6,7 +6,7 @@
 			:class="[
 				// mark field as mandatory
 				props.reqd ? `after:content-['_*'] after:text-red-600` : ``,
-				`block text-sm leading-5 text-gray-700`,
+				`block text-sm leading-5 text-ink-gray-7`,
 			]"
 		>
 			{{ props.label }}
@@ -41,7 +41,7 @@
 			@change="(v) => emit('update:modelValue', v)"
 			:fixedMenu="true"
 			:editable="!isReadOnly"
-			editor-class="prose-sm border-b border-x border-gray-200 rounded-b-sm p-1 min-h-[4rem]"
+			editor-class="prose-sm border-b border-x border-outline-gray-1 rounded-b-sm p-1 min-h-[4rem]"
 		/>
 
 		<!-- Text -->
@@ -67,7 +67,7 @@
 			@change="(v) => emit('change', v)"
 			v-bind="$attrs"
 			:disabled="isReadOnly"
-			class="rounded-sm text-gray-800"
+			class="rounded-sm text-ink-gray-8"
 		/>
 
 		<!-- Data field -->
@@ -110,7 +110,7 @@
 		>
 			<h2
 				v-if="props.label"
-				class="text-base font-semibold text-gray-800"
+				class="text-base font-semibold text-ink-gray-8"
 				:class="props.addSectionPadding ? 'pt-4' : ''"
 			>
 				{{ props.label }}

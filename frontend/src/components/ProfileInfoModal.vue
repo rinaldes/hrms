@@ -1,12 +1,12 @@
 <template>
 	<div
-		class="bg-white w-full flex flex-col items-center justify-center pb-5 max-h-[calc(100vh-5rem)]"
+		class="bg-surface-white w-full flex flex-col items-center justify-center pb-5 max-h-[calc(100vh-5rem)]"
 	>
 		<!-- Header -->
 		<div
 			class="w-full flex flex-row gap-2 pt-8 pb-5 border-b justify-center items-center sticky top-0 z-[100]"
 		>
-			<span class="text-gray-900 font-bold text-lg text-center">
+			<span class="text-ink-gray-9 font-bold text-lg text-center">
 				{{ title }}
 			</span>
 		</div>
@@ -17,7 +17,7 @@
 				:key="item.fieldname"
 				class="flex flex-row items-center justify-between w-full"
 			>
-				<div class="text-gray-600 text-base">{{ item.label }}</div>
+				<div class="text-ink-gray-5 text-base">{{ item.label }}</div>
 				<FormattedField
 					:value="item.value"
 					:fieldtype="item.fieldtype"
